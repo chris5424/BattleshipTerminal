@@ -9,12 +9,12 @@ namespace Battleship
     {        
         public int[,] ShipsBoard { get; set; }
         public int[,] FiresBoard { get; set; }
-        private int[,] OccupancyBoard { get; set; }
+        private int[,] _occupancyBoard { get; set; }
 
         public Board(int boardSize)
         {
             ShipsBoard = new int[boardSize, boardSize];
-            OccupancyBoard = new int[boardSize, boardSize];
+            _occupancyBoard = new int[boardSize, boardSize];
             FiresBoard = new int[boardSize, boardSize];            
         }
 
@@ -25,7 +25,7 @@ namespace Battleship
             {
                 for (int i = 0; i < shipSize; i++)
                 {
-                    if (OccupancyBoard[startRow, startColumn + i] > 0)
+                    if (_occupancyBoard[startRow, startColumn + i] > 0)
                     {
                         return true;
                     }
@@ -35,7 +35,7 @@ namespace Battleship
             {
                 for (int i = 0; i < shipSize; i++)
                 {
-                    if (OccupancyBoard[startRow + i, startColumn] > 0)
+                    if (_occupancyBoard[startRow + i, startColumn] > 0)
                     {                       
                         return true;
                     }
@@ -84,74 +84,74 @@ namespace Battleship
                         for (int i = 0; i < shipSize; i++)
                         {
                             ShipsBoard[startRow, startColumn + i] = ShipsToPlace.IndexOf(ship)+1;
-                            OccupancyBoard[startRow, startColumn + i] = 1;
+                            _occupancyBoard[startRow, startColumn + i] = 1;
 
                             //make occupied border around ship - horizontal ships
                             if (i == 0)
                             {
                                 if (startRow > 0)
                                 {
-                                    OccupancyBoard[startRow - 1, startColumn] = 2;
+                                    _occupancyBoard[startRow - 1, startColumn] = 2;
                                 }
                                 if (startColumn > 0)
                                 {
-                                    OccupancyBoard[startRow, startColumn - 1] = 2;
+                                    _occupancyBoard[startRow, startColumn - 1] = 2;
                                 }
                                 if (startColumn > 0 && startRow > 0)
                                 {
-                                    OccupancyBoard[startRow - 1, startColumn - 1] = 2;
+                                    _occupancyBoard[startRow - 1, startColumn - 1] = 2;
                                 }
                                 if (startRow < 9 && startColumn > 0)
                                 {
-                                    OccupancyBoard[startRow + 1, startColumn - 1] = 2;
+                                    _occupancyBoard[startRow + 1, startColumn - 1] = 2;
                                 }
                                 if (startRow < 9)
                                 {
-                                    OccupancyBoard[startRow + 1, startColumn] = 2;
+                                    _occupancyBoard[startRow + 1, startColumn] = 2;
                                 }
                             }
                             else if (i == shipSize - 1)
                             {
                                 if (endColumn < 10)
                                 {
-                                    OccupancyBoard[startRow, endColumn] = 2;
+                                    _occupancyBoard[startRow, endColumn] = 2;
                                 }
                                 if (endColumn < 10 && startRow > 0)
                                 {
-                                    OccupancyBoard[startRow - 1, endColumn] = 2;
+                                    _occupancyBoard[startRow - 1, endColumn] = 2;
                                 }
                                 if (endColumn < 10 && startRow < 9)
                                 {
-                                    OccupancyBoard[startRow + 1, endColumn] = 2;
+                                    _occupancyBoard[startRow + 1, endColumn] = 2;
                                 }
 
                                 if (startRow > 0 && endColumn - 1 < 10)
                                 {
-                                    OccupancyBoard[startRow - 1, endColumn - 1] = 2;
+                                    _occupancyBoard[startRow - 1, endColumn - 1] = 2;
                                 }
                                 if (startRow < 9 && endColumn - 1 < 10)
                                 {
-                                    OccupancyBoard[startRow + 1, endColumn - 1] = 2;
+                                    _occupancyBoard[startRow + 1, endColumn - 1] = 2;
                                 }
 
                                 if (startRow < 9 && endColumn - 1 < 10)
                                 {
-                                    OccupancyBoard[startRow + 1, endColumn - 1] = 2;
+                                    _occupancyBoard[startRow + 1, endColumn - 1] = 2;
                                 }
                                 if (startRow > 0 && endColumn - 1 < 10)
                                 {
-                                    OccupancyBoard[startRow - 1, endColumn - 1] = 2;
+                                    _occupancyBoard[startRow - 1, endColumn - 1] = 2;
                                 }
                             }
                             else
                             {
                                 if (startRow > 0)
                                 {
-                                    OccupancyBoard[startRow - 1, startColumn + i] = 2;
+                                    _occupancyBoard[startRow - 1, startColumn + i] = 2;
                                 }
                                 if (startRow < 9)
                                 {
-                                    OccupancyBoard[startRow + 1, startColumn + i] = 2;
+                                    _occupancyBoard[startRow + 1, startColumn + i] = 2;
                                 }
                             }
                         }
@@ -161,82 +161,82 @@ namespace Battleship
                         for (int i = 0; i < shipSize; i++)
                         {
                             ShipsBoard[startRow + i, startColumn] = ShipsToPlace.IndexOf(ship)+1;
-                            OccupancyBoard[startRow + i, startColumn] = 1;
+                            _occupancyBoard[startRow + i, startColumn] = 1;
 
                             //make occupied border around ship - vertical ships
                             if (i == 0)
                             {
                                 if (startColumn > 0)
                                 {
-                                    OccupancyBoard[startRow, startColumn - 1] = 2;
+                                    _occupancyBoard[startRow, startColumn - 1] = 2;
                                 }
                                 if (startRow > 0)
                                 {
-                                    OccupancyBoard[startRow - 1, startColumn] = 2;
+                                    _occupancyBoard[startRow - 1, startColumn] = 2;
                                 }
                                 if (startColumn > 0 && startRow > 0)
                                 {
-                                    OccupancyBoard[startRow - 1, startColumn - 1] = 2;
+                                    _occupancyBoard[startRow - 1, startColumn - 1] = 2;
                                 }
                                 if (startColumn < 9 && startRow > 0)
                                 {
-                                    OccupancyBoard[startRow - 1, startColumn + 1] = 2;
+                                    _occupancyBoard[startRow - 1, startColumn + 1] = 2;
                                 }
                                 if (startColumn < 9)
                                 {
-                                    OccupancyBoard[startRow, startColumn + 1] = 2;
+                                    _occupancyBoard[startRow, startColumn + 1] = 2;
                                 }
                             }
                             else if (i == shipSize - 1)
                             {
                                 if (endRow < 10)
                                 {
-                                    OccupancyBoard[endRow, startColumn] = 2;
+                                    _occupancyBoard[endRow, startColumn] = 2;
                                 }
                                 if (startColumn > 0 && endRow < 10)
                                 {
-                                    OccupancyBoard[endRow, startColumn - 1] = 2;
+                                    _occupancyBoard[endRow, startColumn - 1] = 2;
                                 }
                                 if (startColumn < 9 && endRow < 10)
                                 {
-                                    OccupancyBoard[endRow, startColumn + 1] = 2;
+                                    _occupancyBoard[endRow, startColumn + 1] = 2;
                                 }
 
                                 if (endRow - 1 < 10 && startColumn > 0)
                                 {
-                                    OccupancyBoard[endRow - 1, startColumn - 1] = 2;
+                                    _occupancyBoard[endRow - 1, startColumn - 1] = 2;
                                 }
                                 if (endRow - 1 < 10 && startColumn < 9)
                                 {
-                                    OccupancyBoard[endRow - 1, startColumn + 1] = 2;
+                                    _occupancyBoard[endRow - 1, startColumn + 1] = 2;
                                 }
 
                                 if (endRow - 1 < 10 && startColumn < 9)
                                 {
-                                    OccupancyBoard[endRow - 1, startColumn + 1] = 2;
+                                    _occupancyBoard[endRow - 1, startColumn + 1] = 2;
                                 }
                                 if (endRow - 1 < 10 && startColumn > 0)
                                 {
-                                    OccupancyBoard[endRow - 1, startColumn - 1] = 2;
+                                    _occupancyBoard[endRow - 1, startColumn - 1] = 2;
                                 }
                             }
                             else
                             {
                                 if (startColumn > 0)
                                 {
-                                    OccupancyBoard[startRow + i, startColumn - 1] = 2;
+                                    _occupancyBoard[startRow + i, startColumn - 1] = 2;
                                 }
 
                                 if (startColumn < 9)
                                 {
-                                    OccupancyBoard[startRow + i, startColumn + 1] = 2;
+                                    _occupancyBoard[startRow + i, startColumn + 1] = 2;
                                 }
                             }
                         }
                     }
                 }
             }
-            OccupancyBoard = null;            
+            _occupancyBoard = null;            
         }
 
         public int CheckFire(Coordinates shot)

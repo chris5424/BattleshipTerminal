@@ -7,9 +7,8 @@ namespace Battleship
 {
     public class Player
     {
-        public Coordinates ShotCoordinates { get; set; }
+        private List<Coordinates> _boardFields { get; set; }
         public List<Ship> PlayerShips { get; set; }
-        public List<Coordinates> _boardFields { get; set; }
         public Board PlayerBoards;
         public bool Lost { get; set; }
         public Player()
